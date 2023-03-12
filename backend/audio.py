@@ -1,6 +1,7 @@
 import util
 import numpy as np
 import librosa as lr
+import matplotlib.pyplot as plt
 
 '''
 Returns array where row is a frame that include frequency intensities for each mel band
@@ -30,6 +31,8 @@ def extract_chroma(file):
 
     y, _ = lr.effects.trim(y)
 
+    util.raw(y)
+    plt.savefig('raw.png')
     # Extract chroma features
     chroma = lr.feature.chroma_stft(y=y, sr=sr)
 
