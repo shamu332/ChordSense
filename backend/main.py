@@ -3,6 +3,10 @@ from flask_cors import CORS
 import util as util
 import numpy as np
 import librosa as lr
+from flask import send_file
+import os
+
+
 
 app = Flask(__name__)
 CORS(app)
@@ -29,7 +33,12 @@ def load():
     
     S_db_a = np.mean(S_db.T, axis=0)
     # return str(S_db_a), str(sr)
-    return "It works"
+    filename = "cute-beavers.png"  # Filename of the image file
+    dir_path = os.path.dirname(os.path.realpath(__file__))  # Absolute path of the app directory
+    file_path = os.path.join(dir_path, filename)  # Absolute path of the image file
+    return send_file(file_path, mimetype='image/png')
+
+
 
 '''
 Returns frequency bands of a mel-spectrogram
