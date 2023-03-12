@@ -29,12 +29,10 @@ function Landing() {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-        responseType: "blob", // Set the response type to blob
       })
       .then((response) => {
-        console.log(response);
-        const blob = new Blob([response.data]); // Create a new blob object
-        localStorage.setItem("results", blob); // Set the blob URL in local storage
+        console.log(response.data);
+        localStorage.setItem("results", response.data); // Set the blob URL in local storage
         navigate(`/results`);
       });
   };

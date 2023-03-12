@@ -32,7 +32,7 @@ def load():
     filename = "cute-beavers.png"  # Filename of the image file
     dir_path = os.path.dirname(os.path.realpath(__file__))  # Absolute path of the app directory
     file_path = os.path.join(dir_path, filename)  # Absolute path of the image file
-    return pred
+    return str(pred[0])
 
 def load_model():
     if (os.path.exists('pianoX.npy') and os.path.exists('pianoY.npy')):
@@ -61,7 +61,7 @@ def load_model():
 
 def routine(file):
     ## ML Begins
-    X, Y = load_data()
+    X, Y = load_model()
     X_train, X_valid, Y_train, Y_valid = train_test_split(X, Y, test_size=0.80, random_state=0)
 
     # Train a SVM
@@ -70,6 +70,8 @@ def routine(file):
 
     X_valid = audio.extract_chroma(file)
 
+    X_valid = X_valid.reshape(1,12)
+    print(X_valid.shape)
     # Evaluate the SVM on the test data
     Y_pred = clf.predict(X_valid)
 
@@ -78,7 +80,7 @@ def routine(file):
 
 def demo_routine():
     ## ML Begins
-    X, Y = load_data()
+    X, Y = load_model()
     X_train, X_valid, Y_train, Y_valid = train_test_split(X, Y, test_size=0.33, random_state=0)
 
     # Train a SVM
